@@ -13,7 +13,7 @@ public class Dama {
     /**
      * @param args the command line arguments
      */
-    private int tabuleiro[][] = new int [7][7];
+    private peca Casa[][] = new peca [7][7];
     
     
     public static void main(String[] args) {
@@ -36,7 +36,7 @@ public class Dama {
         for(int i = 5; i <= 7; i++){
             for(int j = 0; j <= 7; j++){
                 if(i % 2 == 0){  // // se a linha for par, insere a partir da primeira posição
-                    tabuleiro[i][j] = 0;
+                    Casa[i][j] = 0;
                 } else{
                     // insere a partir da segunda coluna
                 }
@@ -47,11 +47,20 @@ public class Dama {
     public void MostraTabuleiro(){
         for(int i = 0; i <= 7; i++){
             for(int j = 0; j <= 7; j++){
-                System.out.print(tabuleiro[i][j] + " ");
+                System.out.print(Casa[i][j] + " ");
             }
             System.out.println();
         }
         System.out.println("******************FIM DO TABULEIRO******************");
+    }
+    // Recupera a linha de uma coordenada
+    private int getLinha(String coordenada) {
+    	return Integer.valueOf(coordenada.substring(0, 1));
+    }
+    
+    // Recupera o índice da coluna em uma coordenada
+    private int getColuna(String coordenada) {
+    	return ALFABETO.indexOf(coordenada.substring(1, 2));
     }
     
 }
