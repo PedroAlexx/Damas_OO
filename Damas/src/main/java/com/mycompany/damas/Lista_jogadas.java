@@ -8,19 +8,19 @@ package com.mycompany.damas;
  *
  * @author ice
  */
-import java.util.Vector;
+import java.util.*;
  
 public class Lista_jogadas {
  
-    Vector movimentos;
+    ArrayList movimentos;
  
-    Vector instavel;
+    ArrayList instavel;
  
     public Lista_jogadas() {
  
-        movimentos = new Vector();
+        movimentos = new ArrayList();
  
-        instavel = new Vector();
+        instavel = new ArrayList();
  
     }
  

@@ -23,7 +23,7 @@ package com.mycompany.damas;
  */
  
 import java.awt.*;
-import java.util.Vector;
+import java.util.*;
  
 // Esta classe destina-se a fazer a apresentação de um tabuleiro.
 public class Interface_tabuleiro extends Canvas {
@@ -35,7 +35,7 @@ public class Interface_tabuleiro extends Canvas {
     damas controller;
     Tabuleiro tab, tab_visual;
     int jogador, njog;
-    Vector <par> escolha_jogada;
+    ArrayList <par> escolha_jogada;
     Lista_jogadas admissiveis;
     int menor;
     int inter;
@@ -68,7 +68,7 @@ public class Interface_tabuleiro extends Canvas {
         inter = 1;
         admissiveis = new Lista_jogadas();
         tab.Lista_admissiveis(tab, jogador, admissiveis);
-        escolha_jogada = new Vector<par>();
+        escolha_jogada = new ArrayList<par>();
  
         repaint();
  
@@ -81,7 +81,7 @@ public class Interface_tabuleiro extends Canvas {
         super();
  
         int i, j;
-        Vector<?> rui;
+        ArrayList<?> rui;
         // tabuleiro result=new tabuleiro();
         cursorx = -1;
         cursory = -1;
@@ -94,12 +94,12 @@ public class Interface_tabuleiro extends Canvas {
         tab.copia(tab_visual);
         admissiveis = new Lista_jogadas();
         tab.Lista_admissiveis(tab, jogador, admissiveis);
-        escolha_jogada = new Vector();
+        escolha_jogada = new ArrayList<par>();
     }
  
     public boolean mouseDown(Event evt, int x, int y) {
  
-        Vector v1;
+        ArrayList v1;
  
         if (computador == 10)
             return false;
@@ -134,7 +134,7 @@ public class Interface_tabuleiro extends Canvas {
         if (escolha_jogada.size() == 0 && tab.matriz[wy][wx] * jogador <= 0)
             return false;
  
-        escolha_jogada.addElement(new par(wy, wx));
+        escolha_jogada.add(new par(wy, wx));
  
         // 0 se não , 1 se sim incompleta, 2 se sim completa
         tab.copia(tab_visual);
@@ -144,7 +144,7 @@ public class Interface_tabuleiro extends Canvas {
         if (resul == 0) {
             cursorx = -1;
             cursory = -1;
-            escolha_jogada.removeAllElements();
+            escolha_jogada.removeAll(escolha_jogada);
             repaint();
             return false;
         }
@@ -176,26 +176,26 @@ public class Interface_tabuleiro extends Canvas {
  
     }
  
-    public int verifica_jogada(Vector<par> escolha, Tabuleiro tabuleiro1) {
+    public int verifica_jogada(ArrayList<par> escolha, Tabuleiro tabuleiro1) {
  
         int ex, ey, vx, vy, i, j;
  
-        Vector<?> v1;
+        ArrayList<?> v1;
  
         if (escolha.size() == 1) {
  
             // só indicou a peça a mover
             for (i = 0; i < admissiveis.movimentos.size(); i++) {
  
-                v1 = (Vector<?>) admissiveis.movimentos.elementAt(i);
+                v1 = (ArrayList<?>)admissiveis.movimentos.get(i);
  
-                ex = ((par) escolha.elementAt(0)).x;
+                ex = ((par) escolha.get(0)).x;
  
-                ey = ((par) escolha.elementAt(0)).y;
+                ey = ((par) escolha.get(0)).y;
  
-                vx = ((par) v1.elementAt(0)).x;
+                vx = ((par) v1.get(0)).x;
  
-                vy = ((par) v1.elementAt(0)).y;
+                vy = ((par) v1.get(0)).y;
  
                 if (ex == vx && ey == vy)
                     return 1;
@@ -207,20 +207,20 @@ public class Interface_tabuleiro extends Canvas {
  
         for (i = 0; i < admissiveis.movimentos.size(); i++) {
  
-            v1 = (Vector<?>) admissiveis.movimentos.elementAt(i);
+            v1 = (ArrayList<?>) admissiveis.movimentos.get(i);
  
             if (v1.size() < escolha.size())
                 continue;
  
             for (j = 0; j < escolha.size(); j++) {
  
-                ex = ((par) escolha.elementAt(j)).x;
+                ex = ((par) escolha.get(j)).x;
  
-                ey = ((par) escolha.elementAt(j)).y;
+                ey = ((par) escolha.get(j)).y;
  
-                vx = ((par) v1.elementAt(j)).x;
+                vx = ((par) v1.get(j)).x;
  
-                vy = ((par) v1.elementAt(j)).y;
+                vy = ((par) v1.get(j)).y;
  
                 if (ex != vx || ey != vy)
                     break;
@@ -244,7 +244,7 @@ public class Interface_tabuleiro extends Canvas {
  
     }
  
-    public void aplica(Vector<par> movimentos, Tabuleiro tabuleiro1) {
+    public void aplica(ArrayList<par> movimentos, Tabuleiro tabuleiro1) {
  
         int i, cx, cy, ix, iy;
  
@@ -253,21 +253,21 @@ public class Interface_tabuleiro extends Canvas {
         if (movimentos.size() == 0)
             return;
  
-        x1 = ((par) movimentos.elementAt(0)).x;
+        x1 = ((par) movimentos.get(0)).x;
  
-        y1 = ((par) movimentos.elementAt(0)).y;
+        y1 = ((par) movimentos.get(0)).y;
  
         guarda = tabuleiro1.matriz[x1][y1];
  
         for (i = 0; i < movimentos.size() - 1; i++) {
  
-            x1 = ((par) movimentos.elementAt(i)).x;
+            x1 = ((par) movimentos.get(i)).x;
  
-            y1 = ((par) movimentos.elementAt(i)).y;
+            y1 = ((par) movimentos.get(i)).y;
  
-            x2 = ((par) movimentos.elementAt(i + 1)).x;
+            x2 = ((par) movimentos.get(i + 1)).x;
  
-            y2 = ((par) movimentos.elementAt(i + 1)).y;
+            y2 = ((par) movimentos.get(i + 1)).y;
  
             if (x2 < x1)
                 ix = 1;
@@ -287,9 +287,9 @@ public class Interface_tabuleiro extends Canvas {
  
         }
  
-        x2 = ((par) movimentos.elementAt(movimentos.size() - 1)).x;
+        x2 = ((par) movimentos.get(movimentos.size() - 1)).x;
  
-        y2 = ((par) movimentos.elementAt(movimentos.size() - 1)).y;
+        y2 = ((par) movimentos.get(movimentos.size() - 1)).y;
  
         // promove peça se chegar ao fim
         if (Math.abs(tabuleiro1.matriz[x2][y2]) == 2)
