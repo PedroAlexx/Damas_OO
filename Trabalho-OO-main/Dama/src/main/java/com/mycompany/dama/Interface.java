@@ -6,9 +6,11 @@ package com.mycompany.dama;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridLayout;
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.GridLayout;
 /**
  *
  * @author ice
@@ -19,17 +21,16 @@ import javax.swing.*;
 public class Interface extends JFrame 
 {
     private Jogador   jogador_A,jogador_B;
-    Tabuleiro tab;    
-    //JButton[] bt = new JButton[64];
-    JPanel painel;
-
+    private Tabuleiro tab;    
+    private JPanel painel;
+  
     int ORDEM = 8;
     
     public Interface()
     {
         this.painel = new JPanel();
-        tab = new Tabuleiro();
-        tab.InicializaTabuleiro( jogador_A, jogador_B);
+        tab = new Tabuleiro(ORDEM);
+        
         tab.MostraTabuleiro();
     }
     
@@ -38,11 +39,11 @@ public class Interface extends JFrame
         painel.setLayout(new GridLayout(ORDEM, ORDEM));
         for (int i = 0; i < ORDEM; i++) {
             for (int j = 0; j < ORDEM; j++) {
-                Peca peca = new Peca(i, j);
+                Peca peca = new Peca();
                 peca.setX(i);
                 peca.setY(j);
                 
-//                casa.addActionListener(new Jogar(campo));
+                //Casa.addActionListener(new Jogar(campo));
                 //peca.addMouseListener(new Jogar(tab, this));
                 
                 peca.setPreferredSize(new Dimension(50, 50));
@@ -64,7 +65,8 @@ public class Interface extends JFrame
     
     public static void main(String[] args) 
     {
-        new Interface();
+        Interface inicia = new Interface();
+        inicia.desenha();
         
     }
 }
